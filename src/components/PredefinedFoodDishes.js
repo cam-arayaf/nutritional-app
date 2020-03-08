@@ -1,33 +1,41 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import { foodDishes } from './../constants';
+import { predefinedFoodDishes } from './../constants';
+import ToggleButton from '@material-ui/lab/ToggleButton';
 
-const PredefinedFoodDishes = ({ getData }) => (
-    <Grid item xs={ 12 } sm={ 6 }>
-        <Paper className="paper">
-            {
-                foodDishes.map(foodDish => {
-                    const { title } = foodDish;
-                    return (
-                        <Button
-                            key={ title }
-                            id={ title }
-                            value={ title }
-                            variant="contained"
-                            onClick={
-                                () => getData(document.querySelector(`#${ title }`).value.trim())
-                            }
-                        >
-                            { title }
-                        </Button>
-                    );
-                })
-            }
-        </Paper>
-    </Grid>
-);
+const PredefinedFoodDishes = ({ getData, setHits }) => {
+    const getFoods = title => {
+        predefinedFoodDishes.map(foodDish => {
+            foodDish.selected = foodDish.title === title ? !foodDish.selected : false;
+            return !foodDish.selected ? setHits()
+                : getData(document.querySelector(`#${ title }`).value.toLowerCase().trim());
+        });
+    }
+
+    return (
+        <Grid item xs={ 12 }>
+            <Paper className="paper">
+                {
+                    predefinedFoodDishes.map(foodDish => {
+                        const { title, selected } = foodDish;
+                        return (
+                            <ToggleButton
+                                key={ title }
+                                id={ title }
+                                value={ title }
+                                selected={ selected }
+                                onClick={ () => getFoods(title) }
+                            >
+                                { title }
+                            </ToggleButton>
+                        );
+                    })
+                }
+            </Paper>
+        </Grid>
+    );
+}
 
 PredefinedFoodDishes.displayName = 'PredefinedFoodDishes';
 

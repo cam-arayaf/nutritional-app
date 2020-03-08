@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import Grid from '@material-ui/core/Grid';
-import NoResults from './NoResults';
 import FoodDish from './FoodDish';
+import NoResults from './NoResults';
 
 const FoodDishes = ({ hits }) => (
     <Fragment>
@@ -15,7 +15,6 @@ const FoodDishes = ({ hits }) => (
                                 return (
                                     <FoodDish
                                         key={ uri }
-                                        url={ uri }
                                         label={ label }
                                         image={ image }
                                         calories={ calories }

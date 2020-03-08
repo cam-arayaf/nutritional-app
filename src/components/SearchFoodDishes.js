@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import AnyFoodDishes from './AnyFoodDishes';
 import PredefinedFoodDishes from './PredefinedFoodDishes';
@@ -15,14 +15,12 @@ const SearchFoodDishes = () => {
             .catch(err => console.log(err));
     }
 
-    //useEffect(() => hits, [hits]);
-
     return (
         <Fragment>
             <div className="root">
                 <Grid container spacing={ 3 } justify="center">
                     <AnyFoodDishes getData={ getData } />
-                    <PredefinedFoodDishes getData={ getData } />
+                    <PredefinedFoodDishes getData={ getData } setHits={ setHits } />
                 </Grid>
             </div>
             { hits && <FoodDishes hits={ hits } /> }
